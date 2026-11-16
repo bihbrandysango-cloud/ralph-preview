@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Preview · Ralph Agbor</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--bg:#150B12;--bg2:#1C0F18;--card:#22131D;--line:#3D2634;--cream:#F4F0E8;--muted:#A9A399;--pink:#E879D6;--gold:#F7B955;--bronze:#9A7650;--grad:linear-gradient(100deg,#E879D6,#F7B955);}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#EEEAE6;color:#2B1A24;font-family:Calibri,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:26px 16px 70px}
+.top h1{font-family:Georgia,serif;font-weight:400;font-size:30px;margin:0 0 6px}
+.top p{color:#6a5f66;margin:0 0 16px;font-size:15.5px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.tabs button{border:1px solid #d6ccd2;background:#fff;color:#2B1A24;border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s}
+.tabs button.on{background:var(--bg);color:var(--gold);border-color:var(--bg)}
+.browser{border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(21,11,18,.35);background:var(--bg)}
+.bar{background:#2a1a24;padding:9px 12px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%}
+.url{flex:1;background:#140a11;color:#a9a399;border-radius:6px;padding:5px 10px;font-size:12.5px;margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.site{color:var(--cream);background:var(--bg);position:relative;overflow:hidden;min-height:640px}
+/* intro */
+.intro{position:absolute;inset:0;background:var(--bg);z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .8s,visibility .8s}
+.intro.gone{opacity:0;visibility:hidden}
+.intro .mark{width:84px;height:84px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:30px;color:var(--bg);animation:pop 1s ease both}
+.intro .word{font-family:Georgia,serif;letter-spacing:.3em;font-size:20px;animation:rise 1s .4s ease both}
+.intro .line{width:0;height:2px;background:var(--grad);animation:grow 1.4s .7s ease forwards}
+.intro .skip{position:absolute;right:20px;bottom:18px;font-size:12px;letter-spacing:.2em;color:var(--muted);cursor:pointer}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes grow{to{width:180px}}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;gap:12px;flex-wrap:wrap;background:rgba(21,11,18,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo i{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-style:normal;font-family:Georgia,serif;color:var(--bg);font-size:13px}
+.logo b{font-family:Georgia,serif;font-weight:400;letter-spacing:.14em;font-size:14px;display:block}
+.logo small{font-size:9.5px;letter-spacing:.22em;color:var(--gold)}
+.links{display:flex;gap:18px;font-size:13.5px;color:var(--muted);flex-wrap:wrap}
+.links a{cursor:pointer;position:relative;padding:4px 0;transition:color .2s}
+.links a:hover,.links a.on{color:var(--cream)}
+.links a.on::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--grad)}
+.lang{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}.lang b{color:var(--cream)}
+.btn{display:inline-block;background:var(--grad);color:var(--bg);padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;border:0;font-family:inherit;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,121,214,.25)}
+.btn.ghost{background:transparent;color:var(--cream);border:1px solid #6b4d5f}
+.sec{padding:46px 32px}
+.eyebrow{font-size:11px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.h{font-family:Georgia,serif;font-weight:400;font-size:36px;margin:0 0 12px;line-height:1.12}
+.h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.p{color:var(--muted);font-size:15px;line-height:1.65;margin:0}
+.ph{position:relative;border-radius:14px;overflow:hidden;background:radial-gradient(120% 90% at 80% 10%,rgba(232,121,214,.35),transparent 55%),radial-gradient(90% 80% at 10% 100%,rgba(247,185,85,.28),transparent 60%),linear-gradient(160deg,#2b1823,#1c0f18);display:flex;align-items:flex-end;padding:12px;color:#d8cfc4;font-size:11.5px;letter-spacing:.06em}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.06) 50%,transparent 60%);transform:translateX(-100%);animation:sheen 5s infinite}
+@keyframes sheen{to{transform:translateX(100%)}}
+/* hero */
+.hero{position:relative;min-height:520px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:56px 32px}
+.hero .h{font-size:50px}
+.orb{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(70px);opacity:.35;background:var(--grad);right:-120px;top:-120px;animation:float 9s ease-in-out infinite}
+@keyframes float{50%{transform:translate(-40px,40px)}}
+.hero .ph{height:380px;border-radius:200px 200px 16px 16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--muted)}
+.search{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:8px;background:rgba(34,19,29,.9);border:1px solid var(--line);padding:10px;margin-top:24px;border-radius:999px;max-width:620px}
+.field{background:#140a11;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:10px 12px;border-radius:999px}
+.form .field{border-radius:10px;margin-bottom:9px}
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2)}
+.marquee div{display:flex;gap:42px;padding:14px 0;white-space:nowrap;animation:mq 28s linear infinite;font-family:Georgia,serif;color:#cbb9a3;font-size:15px}
+.marquee span::before{content:"✦ ";color:var(--pink)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);border-color:#6b4d5f}
+.card .ph{height:170px;border-radius:0}
+.card .b{padding:14px 16px 16px}
+.card .t{font-size:16px;margin:0 0 4px;color:var(--cream)}
+.price{font-weight:700;font-size:15px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{position:absolute;top:12px;left:12px;font-size:10.5px;letter-spacing:.12em;padding:4px 9px;border-radius:999px;background:rgba(21,11,18,.8);border:1px solid var(--line);color:var(--gold)}
+.tag.let{color:#e0a9a0}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px;position:relative;overflow:hidden;transition:.3s}
+.svc::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:.4s}
+.svc:hover::before{transform:none}
+.svc .n{font-family:Georgia,serif;font-size:26px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.svc .t{font-size:16px;margin:8px 0 6px;color:var(--cream)}
+.svc .p{font-size:13.5px}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{border-left:2px solid;border-image:var(--grad) 1;padding:4px 0 4px 14px}
+.stat b{font-family:Georgia,serif;font-weight:400;font-size:38px;display:block;color:var(--cream)}
+.stat span{font-size:13px;color:var(--muted)}
+.band{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.quote{font-family:Georgia,serif;font-size:22px;line-height:1.45;font-style:italic;color:var(--cream)}
+.side{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.foot{padding:34px 32px 70px;border-top:1px solid var(--line);display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:18px;font-size:13px;color:var(--muted)}
+.foot b{color:var(--cream);display:block;margin-bottom:8px}
+.wa{position:absolute;right:20px;bottom:20px;z-index:25;background:#25D366;color:#06210f;font-weight:700;font-size:12.5px;border-radius:999px;padding:11px 16px;box-shadow:0 6px 18px rgba(0,0,0,.45);animation:pulse 2.4s infinite;cursor:pointer}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+.frame{display:none}.frame.on{display:block;animation:fade .6s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+/* construction animation */
+.build{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:center}
+.stage-svg{background:radial-gradient(100% 80% at 70% 0%,rgba(247,185,85,.12),transparent 60%),#1a0e16;border:1px solid var(--line);border-radius:18px;padding:10px}
+.stage-svg svg{width:100%;height:auto;display:block}
+.part{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease;transform-box:fill-box}
+.part.show{opacity:1;transform:none}
+.crane{transition:opacity .8s}
+.stages{list-style:none;margin:0;padding:0}
+.stages li{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;cursor:pointer;transition:.3s;border:1px solid transparent}
+.stages li .k{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;color:var(--muted);transition:.3s}
+.stages li b{display:block;font-size:14.5px;color:var(--muted);font-weight:700;transition:.3s}
+.stages li span{font-size:12.5px;color:#7d7076}
+.stages li.done .k{background:var(--grad);color:var(--bg);border-color:transparent}
+.stages li.cur{background:var(--card);border-color:var(--line)}
+.stages li.cur b,.stages li.done b{color:var(--cream)}
+.track{height:6px;background:#2e1c27;border-radius:3px;overflow:hidden;margin:14px 0 8px}
+.track i{display:block;height:100%;width:0;background:var(--grad);transition:width .9s ease}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pay{width:100%;border-collapse:collapse;font-size:13.5px}
+.pay td{padding:9px 6px;border-bottom:1px solid var(--line);color:var(--muted)}
+.pay td:last-child{text-align:right}
+.ok{color:#9fe0b2}.due{color:var(--gold)}
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feed .ph{height:120px}
+.caption{margin:10px 2px 0;font-size:14px;color:#6a5f66}
+.sentence{margin-top:24px;background:rgba(34,19,29,.92);border:1px solid var(--line);border-radius:22px;padding:16px 18px;font-family:Georgia,serif;font-size:20px;line-height:2.1;max-width:640px}
+.pick{display:inline-block;font-family:Calibri,Arial;font-size:14px;padding:3px 12px;margin:0 3px;border-radius:999px;border:1px solid #6b4d5f;background:#140a11;color:var(--gold);line-height:1.6}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:h}
+.how div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.how b{display:block;font-family:Georgia,serif;font-weight:400;font-size:20px;color:var(--cream);margin:10px 0 6px}
+.how i{font-style:normal;width:36px;height:36px;border-radius:50%;background:var(--grad);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif}
+.rid{font-size:11px;color:#8d7f86;letter-spacing:.08em}
+.amap{position:relative;height:260px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#1a0e16}
+.amap svg{width:100%;height:100%}
+.vid{aspect-ratio:9/16;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:13px;text-align:center}
+.icons{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.icons div{background:#140a11;border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;font-size:11.5px;color:var(--muted)}
+.icons div span{display:block;font-size:20px;margin-bottom:4px}
+.tabsx{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 12px}
+.tabsx span{padding:7px 14px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--muted);cursor:pointer}
+.tabsx span.on{background:var(--card);color:var(--cream);border-color:#6b4d5f}
+.sticky{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 32px;background:rgba(21,11,18,.95);border-top:1px solid var(--line);backdrop-filter:blur(6px)}
+.modal{position:absolute;inset:0;z-index:40;background:rgba(10,5,9,.75);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex;animation:fade .4s ease}
+.modal .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;max-width:420px;width:100%}
+.ba{position:relative;height:300px;border-radius:16px;overflow:hidden;border:1px solid var(--line);user-select:none}
+.ba .l,.ba .r{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;font-size:12px;letter-spacing:.06em}
+.ba .l{background:linear-gradient(160deg,#3a2a22,#1e140f);color:#d8c7b0}
+.ba .r{background:radial-gradient(120% 90% at 80% 10%,rgba(232,121,214,.35),transparent 55%),radial-gradient(90% 80% at 10% 100%,rgba(247,185,85,.3),transparent 60%),linear-gradient(160deg,#2b1823,#1c0f18);color:#f4f0e8;justify-content:flex-end;clip-path:inset(0 0 0 50%)}
+.ba .knob{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--grad);transform:translateX(-1px)}
+.ba .knob::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--grad);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.case{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.case div{border-top:2px solid;border-image:var(--grad) 1;padding-top:10px}
+.case b{display:block;color:var(--cream);font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+@media(max-width:860px){.how,.case{grid-template-columns:1fr}.icons{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.hero,.two,.build{grid-template-columns:1fr}.g3,.g4,.stats,.feed{grid-template-columns:1fr 1fr}.foot{grid-template-columns:1fr 1fr}.hero .h{font-size:34px}.search{grid-template-columns:1fr 1fr;border-radius:16px}}
+@media(max-width:540px){.g3,.g4,.stats,.feed{grid-template-columns:1fr}.links{display:none}.sec,.hero{padding:34px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<h1>Website preview for Ralph Agbor</h1>
+<p>A clickable mock-up of the new site: layout, pages and animations. Grey boxes are where your photos will go; listings, prices and numbers are examples. Tap the page names below, or use the menu inside the site.</p>
+</div>
+<div class="tabs" id="tabs"></div>
+<div class="browser">
+ <div class="bar"><span class="dot" style="background:#e06c5e"></span><span class="dot" style="background:#e5c14f"></span><span class="dot" style="background:#5fbf68"></span><span class="url" id="url">ralphagbor.com</span></div>
+ <div class="site" id="site">
+  <div class="intro" id="intro"><div class="mark">RA</div><div class="word">RALPH AGBOR</div><div class="line"></div><div class="p" style="font-size:12px;letter-spacing:.2em">REAL ESTATE &amp; CONSTRUCTION</div><div class="skip" id="skip">SKIP INTRO →</div></div>
+  <div class="nav">
+   <div class="logo"><i>RA</i><div><b>RALPH AGBOR</b><small>REAL ESTATE &amp; CONSTRUCTION</small></div></div>
+   <div class="links" id="links"></div>
+   <div style="display:flex;gap:10px;align-items:center"><span class="lang"><b>EN</b> · FR</span><span class="btn" data-go="7">Book a viewing</span></div>
+  </div>
+  <div id="frames"></div>
+  <div class="foot">
+   <div><div class="logo" style="margin-bottom:10px"><i>RA</i><div><b>RALPH AGBOR</b><small>REAL ESTATE &amp; CONSTRUCTION</small></div></div>Homes built, rented and looked after in Cameroon. Prices in FCFA. Pay rent and deposits by MTN or Orange Mobile Money.</div>
+   <div><b>Explore</b>Rentals<br>Construction<br>Services</div>
+   <div><b>Clients</b>Build tracker<br>Tenant portal<br>Contact</div>
+   <div><b>Talk to us</b>+237 ··· ··· ···<br>WhatsApp, 7 days a week<br>Facebook · Instagram · TikTok</div>
+  </div>
+  <div class="wa">WhatsApp us</div>
+ </div>
+</div>
+<p class="caption" id="cap"></p>
+</div>
+
+<script>
+const ph=(t,h)=>`<div class="ph" style="height:${h||170}px">${t}</div>`;
+const listing=(t,p,pr,tag,cls,id)=>`<div class="card rv" data-go="2" style="cursor:pointer"><div style="position:relative"><div class="ph" style="height:170px;border-radius:0">Photo: ${t}</div><span class="tag ${cls||''}">${tag}</span></div><div class="b"><span class="rid">${id||'RA-0'+(10+t.length)}</span><p class="t">${t}</p><p class="p" style="font-size:13px">${p}</p><p class="price" style="margin:8px 0 0">${pr}</p></div></div>`;
+const STAGES=[["Site visit & foundation","Survey, digging and concrete footing"],["Block walls","Ground-floor walls rise"],["Upper floor slab","Concrete slab and first-floor walls"],["Roofing","Roof frame and sheets"],["Finishing","Windows, doors, paint, tiles"],["Handover","Keys, garden and lights on"]];
+const buildBlock=(id)=>`
+<div class="build">
+ <div class="stage-svg"><svg viewBox="0 0 600 360" id="${id}">
+  <defs><linearGradient id="gg${id}" x1="0" x2="1"><stop offset="0" stop-color="#E879D6"/><stop offset="1" stop-color="#F7B955"/></linearGradient><clipPath id="cw${id}"><rect x="130" y="200" width="340" height="88"/></clipPath></defs>
+  <rect x="0" y="300" width="600" height="60" fill="#241520"/>
+  <g class="part" data-s="1"><rect x="120" y="288" width="360" height="14" fill="#6f5f62"/><rect x="110" y="300" width="380" height="8" fill="#55464a"/><g fill="#8a7a6c"><rect x="60" y="282" width="34" height="18" rx="3"/><rect x="500" y="276" width="44" height="24" rx="3"/></g></g>
+  <g class="part" data-s="2" fill="#b9a99a"><rect x="130" y="200" width="340" height="88"/><g fill="#a8988a" clip-path="url(#cw${id})">${Array.from({length:6},(_,r)=>Array.from({length:9},(_,c)=>`<rect x="${131+c*38+(r%2?19:0)}" y="${201+r*14.6}" width="36" height="12.6"/>`).join('')).join('')}</g></g>
+  <g class="part" data-s="3"><rect x="120" y="188" width="360" height="12" fill="#7d6e6f"/><rect x="150" y="120" width="300" height="68" fill="#c6b6a5"/></g>
+  <g class="part" data-s="4"><polygon points="130,122 300,52 470,122" fill="#5a2a4e"/><polygon points="150,122 300,62 450,122" fill="url(#gg${id})" opacity=".55"/></g>
+  <g class="part" data-s="5"><rect x="130" y="200" width="340" height="88" fill="#efe6da"/><rect x="150" y="120" width="300" height="68" fill="#f4ede3"/><g fill="#2f1b28"><rect x="170" y="225" width="52" height="40" rx="3"/><rect x="378" y="225" width="52" height="40" rx="3"/><rect x="276" y="228" width="48" height="60" rx="3"/><rect x="180" y="138" width="44" height="34" rx="3"/><rect x="278" y="138" width="44" height="34" rx="3"/><rect x="376" y="138" width="44" height="34" rx="3"/></g><rect x="120" y="188" width="360" height="10" fill="#d9c6b0"/></g>
+  <g class="part" data-s="6"><g fill="#F7B955" opacity=".85"><rect x="174" y="229" width="44" height="32" rx="2"/><rect x="382" y="229" width="44" height="32" rx="2"/><rect x="184" y="142" width="36" height="26" rx="2"/><rect x="380" y="142" width="36" height="26" rx="2"/></g><g fill="#3f7d55"><circle cx="80" cy="282" r="22"/><circle cx="530" cy="280" r="26"/><rect x="77" y="282" width="6" height="20" fill="#5b3b2a"/><rect x="527" y="282" width="6" height="20" fill="#5b3b2a"/></g><rect x="268" y="300" width="64" height="60" fill="#3a2531"/><text x="300" y="40" text-anchor="middle" font-family="Georgia" font-size="16" fill="url(#gg${id})">Welcome home</text></g>
+  <g class="crane" data-crane><rect x="520" y="60" width="8" height="240" fill="#F7B955"/><rect x="380" y="56" width="200" height="8" fill="#F7B955"/><line x1="420" y1="64" x2="420" y2="120" stroke="#cbb9a3" stroke-width="2"/><rect x="408" y="120" width="24" height="12" fill="#b9a99a"/></g>
+ </svg></div>
+ <div><ul class="stages" data-list>${STAGES.map((s,i)=>`<li data-i="${i+1}"><span class="k">${i+1}</span><div><b>${s[0]}</b><span>${s[1]}</span></div></li>`).join('')}</ul>
+ <div class="track"><i data-track></i></div><div class="ctrl"><span class="btn" data-play>▶ Play the build</span><span class="p" style="font-size:12.5px" data-label>Stage 1 of 6</span></div></div>
+</div>`;
+const F=[
+{n:"Home",url:"",cap:"Home: animated intro (like Sujimoto's), a hero with Ralph's slogan, a scrolling strip of areas, rentals, the build animation teaser, numbers that count up, a diaspora section, reviews and a booking band.",h:`
+<div class="hero"><div class="orb"></div><div style="position:relative">
+ <div class="eyebrow rv">Rentals · Construction · Property care</div>
+ <h3 class="h rv">Homes we <span class="g">build</span>, rent and look after.</h3>
+ <p class="p rv">One trusted team across Cameroon, from the first block to the day you get your keys, and every month after.</p>
+ <div class="sentence rv">I want a <span class="pick">2-bedroom ▾</span> in <span class="pick">Douala · Bonapriso ▾</span><br>for <span class="pick">250,000 FCFA ▾</span> moving in <span class="pick">January ▾</span> <span class="btn" data-go="1" style="font-size:13px">Show me homes</span></div>
+ <div class="chips rv"><span class="chip">Replies within 24 hours</span><span class="chip">Weekly build photos</span><span class="chip">Repairs within 24h–7 days</span></div>
+</div><div class="ph rv" style="height:380px;border-radius:200px 200px 16px 16px">Hero photo or short drone video of Ralph's best building</div></div>
+<div class="marquee"><div>${"Yaoundé,Douala,Buea,Limbe,Bamenda,Bafoussam,Kribi,Garoua".split(',').concat("Yaoundé,Douala,Buea,Limbe,Bamenda,Bafoussam,Kribi,Garoua".split(',')).map(a=>`<span>${a}</span>`).join('')}</div></div>
+<div class="sec"><div class="eyebrow rv">What we do</div><h3 class="h rv">Four services, <span class="g">one team</span></h3><div class="g4" style="margin-top:20px">
+${[["Construction","Homes built stage by stage, with a payment and photos at every step.",3],["Rentals","Good homes for good tenants, checked and signed properly.",1],["Property management","Inspections, repairs and records for every unit.",5],["Tenant care","Rent reminders, receipts, requests and renewals.",8]].map((s,i)=>`<div class="svc rv" data-go="${s[2]}" style="cursor:pointer"><div class="n">0${i+1}</div><div class="t">${s[0]}</div><p class="p">${s[1]}</p></div>`).join('')}</div></div>
+<div class="sec band"><div class="eyebrow rv">How it works</div><h3 class="h rv">Three steps to your <span class="g">new home</span></h3><div class="how" style="margin-top:18px"><div class="rv"><i>1</i><b>Tell us what you need</b><p class="p">Two minutes on the form or one WhatsApp message. No long forms.</p></div><div class="rv"><i>2</i><b>We reply within 24 hours</b><p class="p">With homes that fit, or a place on our waiting list if nothing is free yet.</p></div><div class="rv"><i>3</i><b>Visit and move in</b><p class="p">View the home, sign a clear lease, pay by Mobile Money and get your keys.</p></div></div></div>
+<div class="sec"><div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:10px"><div><div class="eyebrow rv">Available to rent</div><h3 class="h rv">Homes ready <span class="g">now</span></h3></div><span class="btn ghost" data-go="1">See all rentals →</span></div>
+<div class="g3" style="margin-top:18px">${listing("3-bedroom apartment","Bastos, Yaoundé","350,000 FCFA / month","AVAILABLE","","RA-014")}${listing("Family duplex","Bonapriso, Douala","550,000 FCFA / month","AVAILABLE","","RA-003")}${listing("Furnished studio","Molyko, Buea","75,000 FCFA / month","LAST ONE","","RA-009")}</div></div>
+<div class="sec"><div class="eyebrow rv">Watch it rise</div><h3 class="h rv">How we build a home, <span class="g">stage by stage</span></h3><p class="p rv" style="max-width:640px;margin-bottom:20px">Press play or tap a stage. The real site uses Ralph's own site photos (or AI renders) for each stage.</p>${buildBlock('hb')}</div>
+<div class="sec band"><div class="stats">${[[10,"+","properties managed"],[24,"h","emergency repair promise"],[7,"","days a week on WhatsApp"],[100,"%","bilingual, French and English"]].map(s=>`<div class="stat rv"><b data-count="${s[0]}" data-suf="${s[1]}">0</b><span>${s[2]}</span></div>`).join('')}</div></div>
+<div class="sec"><div class="two"><div class="ph rv" style="height:280px">Photo: client on a video call seeing their house</div><div><div class="eyebrow rv">Building from abroad?</div><h3 class="h rv">Watch your house go up from <span class="g">anywhere</span></h3><p class="p rv">Many of our clients live in Europe and the US. You get a private build tracker with weekly photos, stage payments and every document, so you never have to guess what's happening on site.</p><div class="rv" style="margin-top:18px"><span class="btn" data-go="4">See the build tracker</span></div></div></div></div>
+<div class="sec band"><div class="eyebrow rv">What clients say</div><p class="quote rv">"I live in Germany and watched my house built week by week. When I flew home, the keys were waiting."</p><p class="p rv" style="margin-top:10px">Client name · Buea · example review</p></div>
+<div class="sec" style="text-align:center"><h3 class="h rv">Ready to see your next <span class="g">home</span>?</h3><p class="p rv">Book a viewing and we'll reply the same day.</p><div class="rv" style="margin-top:16px"><span class="btn" data-go="7">Book a viewing</span></div></div>`},
+{n:"Rentals",url:"/rentals",cap:"Rentals: listing cards with property IDs (cards stay, since a short list reads best on phones), filters, and a small map that shows areas only, never exact houses.",h:`
+<div class="sec"><div class="eyebrow rv">Rentals</div><h3 class="h rv">Find a home that <span class="g">fits</span></h3>
+<div class="two" style="grid-template-columns:270px 1fr;align-items:start;margin-top:20px">
+<div><div class="side form rv"><p style="margin:0 0 12px;color:var(--cream);font-weight:700">Filters</p><div class="field">City ▾</div><div class="field">Area ▾</div><div class="field">Bedrooms ▾</div><div class="field">Budget (FCFA / month) ▾</div><div class="field">Move-in month ▾</div><span class="btn" style="width:100%;text-align:center">Show homes</span></div>
+<div class="amap rv" style="margin-top:14px"><svg viewBox="0 0 270 260"><rect width="270" height="260" fill="#1a0e16"/><g transform="translate(16,0)"><path d="M150 10 L205 30 L215 70 L185 95 L200 130 L215 175 L205 235 L120 240 L70 232 L40 205 L28 180 L60 150 L75 110 L110 95 L140 60 Z" fill="#22131D" stroke="#3d2634" stroke-width="2"/><circle cx="190" cy="48" r="10" fill="#F7B955" opacity=".28"/><circle cx="190" cy="48" r="3" fill="#F4F0E8"/><text x="203" y="52" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Garoua <tspan fill="#F7B955">1</tspan></text><circle cx="92" cy="108" r="10" fill="#E879D6" opacity=".28"/><circle cx="92" cy="108" r="3" fill="#F4F0E8"/><text x="105" y="112" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Bamenda <tspan fill="#F7B955">1</tspan></text><circle cx="118" cy="132" r="10" fill="#F7B955" opacity=".28"/><circle cx="118" cy="132" r="3" fill="#F4F0E8"/><text x="131" y="136" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Bafoussam <tspan fill="#F7B955">1</tspan></text><circle cx="62" cy="158" r="13" fill="#E879D6" opacity=".28"/><circle cx="62" cy="158" r="3" fill="#F4F0E8"/><text x="46" y="162" text-anchor="end" font-family="Calibri" font-size="11" fill="#F4F0E8">Buea <tspan fill="#F7B955">2</tspan></text><circle cx="40" cy="182" r="10" fill="#F7B955" opacity=".28"/><circle cx="40" cy="182" r="3" fill="#F4F0E8"/><text x="27" y="186" text-anchor="end" font-family="Calibri" font-size="11" fill="#F4F0E8">Limbe <tspan fill="#F7B955">1</tspan></text><circle cx="96" cy="194" r="16" fill="#E879D6" opacity=".28"/><circle cx="96" cy="194" r="3" fill="#F4F0E8"/><text x="115" y="198" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Douala <tspan fill="#F7B955">3</tspan></text><circle cx="168" cy="190" r="13" fill="#F7B955" opacity=".28"/><circle cx="168" cy="190" r="3" fill="#F4F0E8"/><text x="184" y="194" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Yaoundé <tspan fill="#F7B955">2</tspan></text><circle cx="96" cy="230" r="10" fill="#E879D6" opacity=".28"/><circle cx="96" cy="230" r="3" fill="#F4F0E8"/><text x="109" y="234" text-anchor="start" font-family="Calibri" font-size="11" fill="#F4F0E8">Kribi <tspan fill="#F7B955">1</tspan></text></g><text x="135" y="254" text-anchor="middle" font-family="Calibri" font-size="10" fill="#A9A399">Cities and areas only. Exact address after booking.</text></svg></div></div>
+<div><div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap"><span class="chip" style="border-color:#6b4d5f;color:var(--cream)">12 homes · 8 cities</span><span class="chip">Newest first ▾</span><span class="chip">Tell me when one is free</span></div>
+<div class="g3">${listing("3-bedroom apartment","Bastos, Yaoundé","350,000 FCFA / month","AVAILABLE","","RA-014")}${listing("Furnished studio","Molyko, Buea","75,000 FCFA / month","AVAILABLE","","RA-009")}${listing("2-bedroom flat","Makepe, Douala","180,000 FCFA / month","LET","let","RA-011")}${listing("Family duplex","Bonapriso, Douala","550,000 FCFA / month","AVAILABLE","","RA-003")}${listing("Family house","Mile 4, Limbe","200,000 FCFA / month","FROM JANUARY","","RA-021")}${listing("Office space, 60 m²","Akwa, Douala","400,000 FCFA / month","AVAILABLE","","RA-017")}</div></div></div></div>`},
+{n:"Rental detail",url:"/rentals/RA-014",cap:"Rental detail: vertical video tour and gallery on the left; price, water/power/parking icons, Apply in 2 minutes and a pre-filled WhatsApp message on the right; tabs, with 'Built by us' only for homes Ralph built; a sticky Check availability bar.",h:`
+<div class="sec"><span class="rid rv">RA-014 · TO RENT · BASTOS, YAOUNDÉ</span><h3 class="h rv" style="margin-top:6px">3-bedroom apartment</h3>
+<div class="two" style="grid-template-columns:1.15fr .85fr;align-items:start;margin-top:16px">
+<div><div style="display:grid;grid-template-columns:230px 1fr;gap:12px" class="rv"><div class="ph vid">▶<br>60-second<br>video tour</div><div style="display:grid;grid-template-rows:1fr 1fr;gap:12px"><div class="ph">Photo: living room</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="ph">Kitchen</div><div class="ph">+8 photos</div></div></div></div>
+<div class="tabsx rv"><span class="on">Overview</span><span>Neighbourhood</span><span>Built by us ✦</span></div>
+<p class="p rv">Bright apartment on a quiet street, close to schools and the city centre. Backup water tank, generator and a guard at night.</p>
+<p class="p rv" style="font-size:12.5px;margin-top:8px">✦ The "Built by us" tab shows the construction photos of this home. It only appears on homes Ralph built.</p></div>
+<div class="side rv"><p class="price" style="font-size:26px;margin:0">350,000 FCFA / month</p><p class="p" style="font-size:13px;margin:4px 0 0">Deposit and terms explained at the viewing</p>
+<div class="icons"><div><span>💧</span>Tank + borehole</div><div><span>⚡</span>Generator backup</div><div><span>🅿</span>2 cars</div><div><span>🛡</span>Night guard</div><div><span>📶</span>Fibre ready</div></div>
+<span class="btn" data-modal style="width:100%;text-align:center">Apply in 2 minutes</span>
+<div style="margin-top:10px;background:#0f2a1a;border:1px solid #1f5a36;border-radius:12px;padding:10px 12px;font-size:12.5px;color:#b9e8c8">WhatsApp opens with: <i>"Hello, I'm interested in RA-014, 3-bedroom in Bastos, Yaoundé (Rental page)."</i></div>
+<span class="btn ghost" style="width:100%;text-align:center;margin-top:8px">Ask on WhatsApp</span><p class="p" style="font-size:12px;margin-top:10px">We reply within 24 hours.</p></div></div></div>
+<div class="sticky"><span class="p" style="font-size:13.5px"><b style="color:var(--cream)">RA-014</b> · 350,000 FCFA / month · Bastos, Yaoundé</span><span class="btn" data-modal>Check availability</span></div>
+<div class="modal" data-box><div class="box form"><div class="eyebrow">Apply in 2 minutes · RA-014</div><h3 class="h" style="font-size:24px">Tell us about you</h3><div class="field">When do you want to move in? ▾</div><div class="field">How many people will live there? ▾</div><div class="field">Your budget per month (FCFA) ▾</div><div class="field">Work or study: where? </div><div class="field">Phone / WhatsApp</div><span class="btn" data-close>Send</span> <span class="btn ghost" data-close>Close</span><p class="p" style="font-size:12px;margin-top:10px">We reply within 24 hours with a viewing time, or a place on the waiting list.</p></div></div>`},
+{n:"Construction",url:"/construction",cap:"Construction: the animated six-stage build, then case studies (problem, process, result) with a drag-to-compare before/after slider.",h:`
+<div class="sec"><div class="eyebrow rv">Construction</div><h3 class="h rv">From empty plot to <span class="g">your keys</span></h3><p class="p rv" style="max-width:680px;margin-bottom:22px">Six clear stages. A payment at each one. Photos every week. Press play to watch a home go up.</p>${buildBlock('cb')}</div>
+<div class="sec band"><div class="eyebrow rv">Case study</div><h3 class="h rv">A family home for a client in <span class="g">Germany</span></h3>
+<div class="two" style="align-items:start"><div class="ba rv" data-ba><div class="l">BEFORE · empty plot, March</div><div class="r">AFTER · finished home, November</div><div class="knob"></div><input type="range" min="0" max="100" value="50" aria-label="Compare before and after"></div>
+<div><div class="case rv" style="grid-template-columns:1fr;margin-top:0"><div><b>Problem</b><p class="p">The client lived abroad and had lost money on a builder who sent no updates.</p></div><div><b>Process</b><p class="p">Fixed quote, six stage payments, a private build tracker and photos every Friday.</p></div><div><b>Result</b><p class="p">Handed over in 8 months, on budget. The client saw every stage without flying home.</p></div></div>
+<p class="p rv" style="font-size:12px;margin-top:10px">Example text. Ralph's real projects and numbers go here.</p></div></div></div>
+<div class="sec"><div class="eyebrow rv">More projects</div><div class="g3" style="margin-top:14px">
+${[["Residence A, 6 units","Stage 4 of 6 · Roofing"],["Private villa","Handed over 2026"],["Duplex","Stage 2 of 6 · Walls"]].map(p=>`<div class="card rv" data-go="4" style="cursor:pointer"><div style="position:relative"><div class="ph" style="height:170px;border-radius:0">Photo: ${p[0]}</div><span class="tag">${p[1].startsWith('Handed')?'COMPLETED':'ONGOING'}</span></div><div class="b"><p class="t">${p[0]}</p><p class="p" style="font-size:13px">${p[1]}</p></div></div>`).join('')}</div>
+<div class="rv" style="text-align:center;margin-top:26px"><span class="btn" data-go="7">Get a quote in 3 days</span></div></div>`},
+{n:"Build tracker",url:"/my-build/residence-a",cap:"Build tracker: a private page for each construction client, ideal for clients abroad. Live stage, payments made and due, weekly photos and documents.",h:`
+<div class="sec"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:end"><div><div class="eyebrow rv">Private · for this client only</div><h3 class="h rv">Your build: <span class="g">Residence A</span></h3></div><span class="chip">Last update: today, 10:42</span></div>
+<div style="margin-top:18px">${buildBlock('tb')}</div>
+<div class="two" style="align-items:start;margin-top:22px"><div class="side rv"><p style="margin:0 0 8px;color:var(--cream);font-weight:700">Stage payments</p><table class="pay"><tr><td>1. Foundation</td><td class="ok">Paid ✓</td></tr><tr><td>2. Walls</td><td class="ok">Paid ✓</td></tr><tr><td>3. Upper slab</td><td class="ok">Paid ✓</td></tr><tr><td>4. Roofing</td><td class="due">Due 30 Nov</td></tr><tr><td>5. Finishing</td><td>Later</td></tr><tr><td>6. Handover</td><td>Later</td></tr></table></div>
+<div class="side rv"><p style="margin:0 0 8px;color:var(--cream);font-weight:700">Documents</p><p class="p" style="font-size:13.5px;line-height:2">Contract.pdf<br>Building plan.pdf<br>Receipts (3)</p><p style="margin:14px 0 6px;color:var(--cream);font-weight:700">Your site manager</p><p class="p" style="font-size:13.5px">Name · WhatsApp +237 ··· ··· ···</p></div></div></div>
+<div class="sec band"><div class="eyebrow rv">Weekly photo updates</div><div class="feed">${["Week 18 · roof frame done","Week 17 · slab cured","Week 16 · first-floor walls"].map(s=>`<div class="rv">${ph('',120)}<p class="p" style="font-size:13px;margin-top:8px">${s}</p></div>`).join('')}</div></div>`},
+{n:"Services",url:"/services",cap:"Services: four services (no sales), each with what's included, a promise and its own button. Lines draw in as you hover.",h:`
+<div class="sec"><div class="eyebrow rv">Services</div><h3 class="h rv">Everything your property <span class="g">needs</span></h3>
+${[["Construction","Homes and buildings from quote to keys.",["Quote within 3 days","Payment at each of 6 stages","Weekly photos and a private build tracker","Check-ins at 3, 6 and 12 months"],"Get a quote",7],["Rentals","We find the right tenant and sign them properly.",["Listing with photos and video","ID and reference checks","Lease and deposit handled","Move-in inspection with photos"],"See rentals",1],["Property management","Your building cared for as if it were ours.",["Regular inspections","Repairs with set deadlines","A record and photos for every unit","Monthly report to the owner"],"Talk to us",7],["Tenant care","Tenants who feel looked after stay longer.",["Rent invoice on the 25th, reminders after","Receipts the same day","Online repair requests","Renewal talk 60 days before the end"],"Tenant portal",8]].map((s,i)=>`<div class="two rv" style="margin-top:26px;padding-top:26px;border-top:1px solid var(--line);align-items:start"><div><div class="eyebrow">0${i+1}</div><h3 class="h" style="font-size:28px">${s[0]}</h3><p class="p">${s[1]}</p><ul class="p" style="margin:12px 0 0;padding-left:18px;line-height:1.9">${s[2].map(x=>`<li>${x}</li>`).join('')}</ul><div style="margin-top:14px"><span class="btn ghost" data-go="${s[4]}">${s[3]} →</span></div></div>${ph('Photo: '+s[0].toLowerCase(),220)}</div>`).join('')}</div>`},
+{n:"About",url:"/about",cap:"About: Ralph's story with his photo, numbers that count up, values, team, and a 'Community' block (Sujimoto has CSR; this is Ralph's local version).",h:`
+<div class="sec"><div class="two"><div><div class="eyebrow rv">About us</div><h3 class="h rv">Built in Cameroon, <span class="g">for</span> Cameroon</h3><p class="p rv">Ralph's story in his own words: how he started, the first house he built, and why he looks after every tenant like family.</p></div><div class="ph rv" style="height:300px;border-radius:200px 200px 16px 16px">Photo: Ralph on site</div></div></div>
+<div class="sec band"><div class="stats">${[[10,"+","properties managed"],[0,"","homes built (Ralph's number)"],[0,"","years in business"],[0,"","happy tenants"]].map(s=>`<div class="stat rv"><b data-count="${s[0]}" data-suf="${s[1]}">0</b><span>${s[2]}</span></div>`).join('')}</div></div>
+<div class="sec"><div class="eyebrow rv">What we stand for</div><div class="g3" style="margin-top:14px">${[["Honest prices","Clear quotes in FCFA. No surprises."],["Fast replies","Every message answered the same day."],["Proof, not promises","Photos at every stage of every build."]].map((v,i)=>`<div class="svc rv"><div class="n">0${i+1}</div><div class="t">${v[0]}</div><p class="p">${v[1]}</p></div>`).join('')}</div></div>
+<div class="sec band"><div class="two"><div><div class="eyebrow rv">Community</div><h3 class="h rv" style="font-size:28px">Giving back where we build</h3><p class="p rv">Space for Ralph's local projects, such as repairing a school roof or a water point, with photos.</p></div>${ph('Photo: community project',200)}</div></div>`},
+{n:"Contact & booking",url:"/contact",cap:"Contact: one smart form (viewing, quote, manage my property, other), WhatsApp, office hours, map, and a 'reply the same day' promise.",h:`
+<div class="sec"><div class="two" style="align-items:start"><div><div class="eyebrow rv">Contact</div><h3 class="h rv">Let's <span class="g">talk</span></h3><p class="p rv">Book a viewing, ask for a construction quote, or hand us your property to manage. We reply the same day.</p>
+<div class="side form rv" style="margin-top:18px"><div class="chips" style="margin:0 0 12px"><span class="chip" style="border-color:#6b4d5f;color:var(--cream)">Book a viewing</span><span class="chip">Construction quote</span><span class="chip">Manage my property</span><span class="chip">Other</span></div><div class="field">Full name</div><div class="field">Phone / WhatsApp</div><div class="field">Where do you live? (Cameroon / abroad)</div><div class="field">Property or area</div><div class="field">Preferred date ▾</div><div class="field" style="height:80px;border-radius:10px">Message</div><span class="btn">Send</span></div></div>
+<div><div class="side rv"><p style="margin:0 0 4px;color:var(--cream);font-weight:700">Office</p><p class="p">Street, City, Cameroon · Mon–Sat, 8:00–18:00</p><p style="margin:14px 0 4px;color:var(--cream);font-weight:700">Phone and WhatsApp</p><p class="p">+237 ··· ··· ··· (7 days a week)</p><p style="margin:14px 0 4px;color:var(--cream);font-weight:700">Email</p><p class="p">contact@company.cm</p></div>${'<div class="rv" style="margin-top:14px">'+ph('Map',220)+'</div>'}</div></div></div>`},
+{n:"Tenant portal",url:"/tenants",cap:"Tenant portal: rent status and Mobile Money payment details, a repair request form with a photo, the repair deadlines, and tracking by reference number.",h:`
+<div class="sec"><div class="eyebrow rv">For our tenants</div><h3 class="h rv">Your <span class="g">tenant portal</span></h3>
+<div class="g3" style="margin-top:18px">
+<div class="side rv"><p class="eyebrow" style="margin:0 0 6px">Rent</p><p class="price" style="font-size:22px;margin:0">December rent</p><p class="p" style="font-size:13.5px;margin:6px 0 12px">Invoice sent 25 Nov · due 1 Dec</p><p class="p" style="font-size:13px">Pay by MTN or Orange Mobile Money, then send the proof on WhatsApp. Your receipt comes the same day.</p></div>
+<div class="side rv"><p class="eyebrow" style="margin:0 0 6px">Track a request</p><div class="field" style="border-radius:10px">Reference, e.g. REP-0142</div><span class="btn ghost" style="margin-top:6px">Check status</span><p class="p" style="font-size:13px;margin-top:10px">REP-0142 · Leaking tap · <span class="due">fix by Thu</span></p></div>
+<div class="side rv"><p class="eyebrow" style="margin:0 0 6px">Repair deadlines</p>${[["24 hours","Water, power, security"],["72 hours","Stops normal use of the home"],["7 days","Everything else"]].map(d=>`<p style="margin:0 0 8px"><b style="font-family:Georgia;font-weight:400;font-size:20px;color:var(--cream)">${d[0]}</b><br><span class="p" style="font-size:13px">${d[1]}</span></p>`).join('')}</div></div>
+<div class="side form rv" style="margin-top:18px;max-width:640px"><p style="margin:0 0 12px;color:var(--cream);font-weight:700">Report a repair</p><div class="field">Your name</div><div class="field">Property and unit ▾</div><div class="field">Problem: water · electricity · security · other ▾</div><div class="field">How urgent? ▾</div><div class="field" style="height:70px;border-radius:10px">Describe the problem</div><div class="field">📷 Add a photo</div><span class="btn">Send request</span></div></div>`}
+];
+const tabs=document.getElementById('tabs'),links=document.getElementById('links'),frames=document.getElementById('frames'),site=document.getElementById('site');
+F.forEach((f,i)=>{tabs.insertAdjacentHTML('beforeend',`<button data-go="${i}">${i+1}. ${f.n}</button>`);frames.insertAdjacentHTML('beforeend',`<div class="frame" id="f${i}">${f.h}</div>`)});
+[[0,"Home"],[1,"Rentals"],[3,"Construction"],[5,"Services"],[6,"About"],[8,"Tenants"],[7,"Contact"]].forEach(([i,n])=>links.insertAdjacentHTML('beforeend',`<a data-go="${i}">${n}</a>`));
+// reveal + counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');const c=e.target.querySelector('[data-count]');if(c&&!c.dataset.done){c.dataset.done=1;const to=+c.dataset.count,suf=c.dataset.suf||'';if(!to){c.textContent='[ ]';}else{let t0=null;const step=ts=>{t0=t0||ts;const k=Math.min(1,(ts-t0)/1400);c.textContent=Math.round(to*k)+suf;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}}io.unobserve(e.target)}}),{threshold:.15});
+// build animations
+const builds={};
+function setStage(root,n){root.querySelectorAll('.part').forEach(p=>p.classList.toggle('show',+p.dataset.s<=n));const cr=root.querySelector('[data-crane]');if(cr)cr.style.opacity=(n>=2&&n<=4)?1:0;root.querySelectorAll('[data-list] li').forEach(li=>{const i=+li.dataset.i;li.classList.toggle('done',i<n);li.classList.toggle('cur',i===n)});root.querySelector('[data-track]').style.width=(n/6*100)+'%';root.querySelector('[data-label]').textContent=`Stage ${n} of 6 · ${STAGES[n-1][0]}`;builds[root.id||'x']=n;}
+function initBuild(root,start){setStage(root,start);let timer=null;const play=root.querySelector('[data-play]');play.onclick=()=>{clearInterval(timer);let n=0;setStage(root,1);n=1;play.textContent='❚❚ Playing…';timer=setInterval(()=>{n++;if(n>6){clearInterval(timer);play.textContent='↻ Play again';return}setStage(root,n)},1400)};root.querySelectorAll('[data-list] li').forEach(li=>li.onclick=()=>{clearInterval(timer);play.textContent='▶ Play the build';setStage(root,+li.dataset.i)});}
+function go(i){i=+i;document.querySelectorAll('.frame').forEach((e,k)=>e.classList.toggle('on',k===i));document.querySelectorAll('#tabs button').forEach((e,k)=>e.classList.toggle('on',k===i));document.querySelectorAll('#links a').forEach(e=>e.classList.toggle('on',+e.dataset.go===i));document.getElementById('url').textContent='ralphagbor.com'+F[i].url;document.getElementById('cap').textContent=`Frame ${i+1} of 9 · ${F[i].cap}`;
+ const fr=document.getElementById('f'+i);fr.querySelectorAll('.rv').forEach(el=>{el.classList.remove('in');io.observe(el)});fr.querySelectorAll('.build').forEach((b,k)=>{if(!b.dataset.init){b.dataset.init=1;b.id='b'+i+'_'+k;initBuild(b,i===4?4:1)}});}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t){go(t.dataset.go);if(!t.closest('#tabs'))document.querySelector('.browser').scrollIntoView({behavior:'smooth'});}});
+document.addEventListener('click',e=>{if(e.target.closest('[data-modal]')){const m=e.target.closest('.frame').querySelector('[data-box]');m&&m.classList.add('on')}if(e.target.closest('[data-close]')){e.target.closest('[data-box]').classList.remove('on')}});
+document.addEventListener('input',e=>{const b=e.target.closest('[data-ba]');if(b){const v=e.target.value;b.querySelector('.r').style.clipPath=`inset(0 0 0 ${v}%)`;b.querySelector('.knob').style.left=v+'%'}});
+const intro=document.getElementById('intro');document.getElementById('skip').onclick=()=>intro.classList.add('gone');setTimeout(()=>intro.classList.add('gone'),2800);
+go(0);
+</script>
+</body>
+</html>
